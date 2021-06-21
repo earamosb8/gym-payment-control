@@ -1,0 +1,12 @@
+{% extends 'error.html'%}
+{% block body %}
+    <div class= "container-fluid">
+        <div class="row"> 
+            <nav class="navbar-dark col-lg-12">
+                <img src={{ url_for('static', filename='img/logo.png') }} class="mx-auto mt-2 d-block" alt="logo">
+            </nav>
+            <h5 class="text-center mt-3 text-black font-weight-bold mx-auto"> {{error}} </h1>
+        <div>
+
+    </div>
+{% endblock %}

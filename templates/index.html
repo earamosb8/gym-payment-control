@@ -1,0 +1,107 @@
+{% extends 'layout.html'%}
+{% block title %}
+        {{ super() }} 
+            Clientes 
+{% endblock %} 
+{% block body %}
+<div class="container-mt-4">
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <h1 class="text-center font-weight-bold"> Clientes </h1>
+    </div>
+   <div class="col-lg-4">
+    {% with messages = get_flashed_messages(category_filter=["confirmation"]) %}
+        {% if messages  %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}  
+            <div class="card card-body mb-4 ">
+                <form action="/add_customers" method="POST">
+                    <div class="form-group">
+                        <input type="text" required name="cedula" placeholder="Cedula" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onpaste="return false">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required name="nombre" placeholder="Nombre" class="form-control" onkeyup="this.value=this.value.replace(/[^a-zA-Z ]/g,'');">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required name="direccion" placeholder="Direccion" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required name="telefono" placeholder="Telefono" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onpaste="return false">
+                    </div>
+                    <div class="form-group">
+                        <input type="date" required name="fecha" placeholder="Fecha"   class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block form-control ">Guardar</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+        <div class="col-lg-8">
+            <table class="table table-striped table-hover table-bordered table-sm bg-white">
+                <thead>
+                    <tr>
+                        <td>Cedula</td>
+                        <td>Nombre</td>
+                        <td>Direccion</td>
+                        <td>Telefono</td>
+                        <td>Fecha de Vencimiento</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes%}
+                    <tr>
+                        <td>{{ cliente.0 }}</td>
+                        <td>{{ cliente.1 }}</td>
+                        <td>{{ cliente.2 }}</td>
+                        <td>{{ cliente.3 }}</td>
+                        {% if cliente.4 > today %}
+                            <td>{{ cliente.4 }}</td>
+                        {% elif cliente.4 == today %}
+                            <td style="background-color: rgb(255, 187, 0); color: white;">{{ cliente.4 }}</td>
+                        {% elif cliente.4 < today %}
+                            <td style="background-color: red; color: white;">{{ cliente.4 }}</td>
+                        {% endif %}
+                        <td>
+                            <a href='/edit_customer/{{ cliente.0 }}' class="btn btn-secondary">Editar</a>
+                            <a href='/delete_customer/{{ cliente.0 }}' class="btn btn-danger btn-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                
+            </tbody>
+            </table>
+                <form action="/print_customers" class="col-5 col-lg-2">
+                
+                    <div class="form-group  ">
+                        <button type="submit" class="btn btn-primary btn-block form-control ">PRINT</button>
+                    </div>
+                </form>
+        </div>
+    </div>  
+    </div>
+
+   <h1>{{rol}}</h1> 
+
+{% endblock %}

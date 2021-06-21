@@ -1,0 +1,51 @@
+*{
+    padding: 0px;
+     margin:0px;
+}
+body{
+    background-color: #EEEEEE;
+   /* background: #2193b0;  fallback for old browsers */
+
+}  
+nav{
+    background-color: #68829e ;
+} 
+img
+{
+    width: 220px;
+}
+
+img-error
+{
+    width: 500px;
+} 
+
+
+.section{
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 300px;
+    box-sizing: border-box;
+}
+.section .form{
+    flex: 1;
+    padding: 25px;
+    margin: 20px;
+    box-sizing: border-box;
+    
+}
+.section .tabla{
+    flex:2;
+    padding: 25px;
+    margin: 20px;
+    min-width: 250px;
+    margin-bottom: 0px;
+    min-width: 300px;
+    box-sizing: border-box;
+    
+}
+@media screen and (min-width:300px){
+    .section .form{
+        width: 500px;
+    }
+}
